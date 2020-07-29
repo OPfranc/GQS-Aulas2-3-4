@@ -1,56 +1,106 @@
 using System;
 
-namespace ex1.Telas
+namespace aula4.Telas
 {
-public class TelaBase
+    public class TelaBase
     {
-
-
-        public void Escrever(string mensagem)
+            protected void Escrever(string mensagem = "", ConsoleColor foregroundColor = ConsoleColor.Gray, ConsoleColor backgroundColor = ConsoleColor.Black, int espacoEmBranco = 0)
         {
-            Console.WriteLine(mensagem);
+            Console.ForegroundColor = foregroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            Console.WriteLine(mensagem.PadRight(Console.WindowWidth - 1));
+            Console.ResetColor();
+
+            for(int i = 0; i < espacoEmBranco; i++)
+            {
+                Escrever();
+            }
         }
 
-        public string LerString()
+        protected string LerString()
         {
-            return Console.ReadLine();
+            var retorno = "";
+            var executando = true;
+            do
+            {
+                if (string.IsNullOrWhiteSpace(retorno = Console.ReadLine()))
+                {
+                    var mensagem = "Entrada invalida. Digite novamente.";
+                    Escrever(mensagem, ConsoleColor.DarkRed);
+                    continue;
+                }
+                executando = false;
+            } while (executando);
+
+            return retorno;
         }
-        
-        public string LerString(string mensagem)
+
+        protected string LerString(string mensagem)
         {
             Escrever(mensagem);
 
             return LerString();
         }
 
-        public int LerInt()
+        protected int LerInt()
         {
-            return int.Parse(Console.ReadLine());
+            var retorno = 0;
+            var mensagem = "";
+            var executando = true;
+            do
+            {
+                if (!string.IsNullOrWhiteSpace(mensagem))
+                {
+                    Escrever(mensagem, ConsoleColor.DarkRed);
+                    mensagem = "";
+                }
+
+                try
+                {
+                    retorno = int.Parse(Console.ReadLine());
+                    executando = false;
+                }
+                catch
+                {
+                    mensagem = "Entrada invalida. Digite novamente.";
+                }
+            } while (executando);
+
+            return retorno;
         }
-        
-        public int LerInt(string mensagem)
+
+        protected int LerInt(string mensagem, ConsoleColor foregroundColor = ConsoleColor.Gray, ConsoleColor backgroundColor = ConsoleColor.Black )
         {
-            Escrever(mensagem);
+            Escrever(mensagem, foregroundColor, backgroundColor);
 
             return LerInt();
         }
-        public void LimparTela()
+        protected void LimparTela()
         {
             Console.Clear();
         }
 
-        public void AguardarTecla()
+        protected void AguardarTecla()
         {
             Console.ReadKey();
         }
 
-        public void AguardarTecla(string mensagem)
+        protected void AguardarTecla(string mensagem, ConsoleColor foregroundColor = ConsoleColor.DarkYellow, ConsoleColor backgroundColor = ConsoleColor.Black ) 
         {
-            Escrever(mensagem);
-
+            Escrever(mensagem, foregroundColor, backgroundColor);
             AguardarTecla();
         }
 
+        protected void Titulo(string mensagem, ConsoleColor backgroundColor = ConsoleColor.DarkGray)
+        {
+            LimparTela();
+            Escrever(mensagem, ConsoleColor.White, backgroundColor, espacoEmBranco: 1);
+        }
 
+        public void OpcaoInvalida()
+        {
+            Escrever("Opção inválida", ConsoleColor.DarkRed);
+        }
     }
 }

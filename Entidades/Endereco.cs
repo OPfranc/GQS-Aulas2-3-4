@@ -1,42 +1,78 @@
-namespace ex1.Entidades
+namespace aula4.Entidades
 {
     public class Endereco
     {
-        public string Rua { get; set; }
+        private string Rua;
+        private string Numero;
+        private string Cep;
+        private string Cidade;
+        private string Estado;
 
-        public string Numero { get; set; }
 
-        public string Cep { get; set; }
+        public string RetornarRua() => Rua;
 
-        public string Cidade { get; set; }
+        public void AtribuirRua(string rua)
+        {
+            Rua = rua;
+        }
 
-        public string Estado { get; set; }
+
+        public string RetornarNumero() => Numero;
+
+        public void AtribuirNumero(string numero)
+        {
+            Numero = numero;
+        }
+
+
+        public string RetornarCep() => Cep;
+
+        public void AtribuirCep(string cep)
+        {
+            Cep = cep;
+        }
+
+
+        public string RetornarCidade() => Cidade;
+
+        public void AtribuirCidade(string cidade)
+        {
+            Cidade = cidade;
+        }
+
+
+        public string RetornarEstado() => Estado;
+
+        public void AtribuirEstado(string estado)
+        {
+            Estado = estado;
+        }
+
 
         public Endereco()
         {
-            Rua = "nao informado";
-            Numero = "nao informado";
-            Cep = "nao informado";
-            Cidade = "nao informado";
-            Estado = "nao informado";
-        }
-
-        public Endereco(string cep)
-        {
-            Cep = cep;
+            AtribuirRua("nao informado");
+            AtribuirNumero("nao informado");
+            AtribuirCep("nao informado");
+            AtribuirCidade("nao informado");
+            AtribuirEstado("nao informado");
         }
 
         public Endereco(string rua, string numero, string cep, string cidade, string estado)
         {
-            Rua = rua;
-            Cidade = cidade;
-            Cep = cep;
-            Estado = estado;
-            Numero = numero;
+            AtribuirRua(rua);
+            AtribuirNumero(numero);
+            AtribuirCep(cep);
+            AtribuirCidade(cidade);
+            AtribuirEstado(estado);
         }
         public string RetornarDados()
         {
-            return $"-- Endereço ----------------------\nRua: {Rua}, Numero:{Numero}\nCidade:{Cidade}/{Estado} CEP:({Cep})";
+            return $"Endereço:\nRua: {Rua}, Numero:{Numero}\nCidade:{Cidade}/{Estado} CEP:({Cep})";
+        }
+        public string RetornaDadosSalvar()
+        {
+            return $"{Rua};{Numero};{Cep};{Cidade};{Estado}";
         }
     }
 }

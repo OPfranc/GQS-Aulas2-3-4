@@ -1,13 +1,14 @@
-﻿using ex1.Telas;
+﻿using System;
+using aula4.Telas;
 
-namespace ex1
+namespace aula4
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var tela = new TelaCliente();            
-            tela.Executar();
+            var telaInicio = TelaInicio.Instance();
+            telaInicio.Executar();
         }
     }
 }

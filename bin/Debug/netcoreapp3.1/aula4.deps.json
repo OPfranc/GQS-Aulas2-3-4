@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "ex1/1.0.0": {
+      "aula4/1.0.0": {
         "runtime": {
-          "ex1.dll": {}
+          "aula4.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "ex1/1.0.0": {
+    "aula4/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

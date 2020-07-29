@@ -1,0 +1,13 @@
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.exe
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.deps.json
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.runtimeconfig.json
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.runtimeconfig.dev.json
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.dll
+C:\Users\darks\Desktop\AULAS\aula4\bin\Debug\netcoreapp3.1\aula4.pdb
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.csprojAssemblyReference.cache
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.AssemblyInfoInputs.cache
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.AssemblyInfo.cs
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.csproj.CoreCompileInputs.cache
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.dll
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.pdb
+C:\Users\darks\Desktop\AULAS\aula4\obj\Debug\netcoreapp3.1\aula4.genruntimeconfig.cache

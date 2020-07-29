@@ -1,102 +1,144 @@
 using System;
 
-namespace ex1.Entidades
+namespace aula4.Entidades
 {
-    public class Cliente
+    public partial class Cliente : Entidade
     {
+
+
         private string Cpf;
-        private string Nome;
-        private int Idade;
-        private EnumSexo Sexo;
-        private int NumeroCarteiraMotorista;
+        private int CarteiraMotorista;
         private int CarteiraReservista;
         private Endereco Endereco;
-        
-        public Cliente(string cpf, string nome, int idade, EnumSexo sexo)
-        {            
+
+
+
+        public string RetornarCpf() => Cpf;
+
+        public void AtribuirCpf(string cpf)
+        {
             Cpf = cpf;
-            Nome = nome;
-            Idade = idade;
-            Sexo = sexo;
         }
 
-        public Cliente(string cpf, string nome, int idade, EnumSexo sexo, Endereco endereco) : this(cpf, nome, idade, sexo)
+
+        public int RetornarCarteiraMotorista() => CarteiraMotorista;
+        public string RetornarCarteiraMotoristaString() => CarteiraMotorista.ToString();
+
+        public void AtribuirCarteiraMotorista(int carteiraMotorista)
         {
-            Endereco = endereco;            
+            CarteiraMotorista = carteiraMotorista;
         }
 
-        public bool PossuiMaioridade()
-        {
-            return (Idade >= 18);
-        }
 
-        public bool PossuiCarteiraReservista(){
+        public int RetornarCarteiraReservista() => CarteiraReservista;
+        public string RetornarCarteiraReservistaString() => CarteiraReservista.ToString();
 
-            if(!PossuiMaioridade())
-                return false;
-
-            if(Sexo == EnumSexo.Feminino)
-                return false;
-
-            return true;
-        }
-        
-        public bool PossuiCarteiraMotorista(){
-            
-            if(!PossuiMaioridade())
-                return false;
-
-            return true;
-        }
-        public void AdicionarCarteiraReservista(int carteiraReservista)
+        public void AtribuirCarteiraReservista(int carteiraReservista)
         {
             CarteiraReservista = carteiraReservista;
         }
 
-        public void AdicionarCarteiraMotorista(int numeroCarteiraMotorista)
+
+        public Endereco RetornaEndereco() => Endereco;
+
+        public void AtribuirEndereco(Endereco endereco)
         {
-            NumeroCarteiraMotorista = numeroCarteiraMotorista;            
+            Endereco = endereco;
+        }
+
+
+        public Cliente()
+        {
+
+        }
+        public Cliente(string nome, int idade, EnumSexo sexo) : base(nome, idade, sexo)
+        {
+
+        }
+        public Cliente(string identificacao, string nome, int idade, EnumSexo sexo) : base(identificacao, nome, idade, sexo)
+        {
+            AtribuirCpf(identificacao);
+        }
+        public Cliente(string identificacao, Entidade entidade) : this(identificacao, entidade.RetornarNome(), entidade.RetornarIdade(), entidade.RetornarSexo())
+        {
+
+        }
+        public Cliente(string identificacao, string nome, int idade, EnumSexo sexo, Endereco endereco) : this(identificacao, nome, idade, sexo)
+        {
+            AtribuirEndereco(endereco);
+        }
+        public Cliente(string identificacao, string nome, int idade, EnumSexo sexo, int carteiraMotorista, int carteiraReservista, Endereco endereco) : this(identificacao, nome, idade, sexo, endereco)
+        {
+            AtribuirCarteiras(carteiraMotorista, carteiraReservista);
+        }
+
+
+        public void AtribuirCarteiras(int carteiraMotorista, int carteiraReservista)
+        {
+            AtribuirCarteiraMotorista(carteiraMotorista);
+            AtribuirCarteiraMotorista(carteiraReservista);
+        }
+
+        public Cliente(string[] dadosCarregados)
+        {
+            AtribuirCpf(dadosCarregados[0]);
+            AtribuirNome(dadosCarregados[1]);
+            AtribuirIdade(int.Parse(dadosCarregados[2]));
+            AtribuirSexo(dadosCarregados[3] == "Masculino" ? EnumSexo.Masculino : EnumSexo.Feminino);
+            AtribuirCarteiraMotorista(int.Parse(dadosCarregados[4]));
+            AtribuirCarteiraReservista(int.Parse(dadosCarregados[5]));
+            var endereco = new Endereco(dadosCarregados[6], dadosCarregados[7], dadosCarregados[8], dadosCarregados[9], dadosCarregados[10]);
+            AtribuirEndereco(endereco);
+        }
+
+        public bool PossuiMaioridade() => (RetornarIdade() >= 18);
+
+
+        public bool PossuiCarteiraReservista()
+        {
+
+            if (!PossuiMaioridade())
+                return false;
+
+            if (RetornarSexo() == EnumSexo.Feminino)
+                return false;
+
+            return true;
         }
 
         public string RetornarDados()
         {
-            var carteiraMotorista = PossuiMaioridade() 
-                ? NumeroCarteiraMotorista.ToString()
+            var carteiraMotorista = PossuiMaioridade()
+                ? RetornarCarteiraMotoristaString()
                 : "nao se aplica";
 
-            var carteiraReservista = PossuiMaioridade() && Sexo == EnumSexo.Masculino 
-                ? CarteiraReservista.ToString()
+            var carteiraReservista = PossuiMaioridade() && RetornarSexo() == EnumSexo.Masculino
+                ? RetornarCarteiraReservistaString()
                 : "nao se aplica";
 
-            var info = $"\nCPF: {Cpf}\nNome: {Nome}\nIdade: {Idade}-({RetornarAnoNascimento()})\nSexo: {Sexo.ToString()}\nCarteira de Motorista: {carteiraMotorista}\nCarteira de Reservista: {carteiraReservista}\n{Endereco.RetornarDados()}";
+            var dados = $"\nCPF: {Cpf}\nNome: {RetornarNome()}\nIdade: {RetornarIdadeString()}-({RetornarAnoNascimentoString()})\nSexo: {RetornarSexoString()}\nCarteira de Motorista: {carteiraMotorista}\nCarteira de Reservista: {carteiraReservista}\n{RetornaEndereco().RetornarDados()}";
 
-            return info;
+            return dados;
         }
 
-        public int RetornarAnoNascimento()
+        public string RetornarCpfNome() => $"Cpf: {Cpf} - Nome: {RetornarNome()}";
+
+        public string RetornarDadosSalvar()
         {
-            var anoNascimento = DateTime.Now.Year - Idade;
+            var endereco = RetornaEndereco().RetornaDadosSalvar();
+            var cliente = $"{Cpf};{RetornarNome()};{RetornarIdade()};{RetornarSexo()};{RetornarCarteiraMotoristaString()};{RetornarCarteiraReservistaString()}";
+            var dadosSalvar = string.Join(";", cliente, endereco);
 
-            return anoNascimento;
+            return dadosSalvar;
         }
-
-        public string RetornarCpfNome()
+        public void AlterarCliente(string nome, int idade, EnumSexo sexo, Endereco endereco, int carteiraMotorista, int carteiraReservista)
         {
-            return $"Cpf: {Cpf} - Nome: {Nome}";
-        }
-
-        public string RetornarCpf()
-        {
-            return Cpf;
-        }
-        public void AlterarCliente(string nome, int idade, EnumSexo sexo, Endereco endereco){
-            Nome = nome;
-            Idade = idade;
-            Sexo = sexo;
-            Endereco = endereco;
-        }
-        public Endereco RetornaEndereco(){
-            return Endereco;
+            AtribuirNome(nome);
+            AtribuirIdade(idade);
+            AtribuirSexo(sexo);
+            AtribuirEndereco(endereco);
+            AtribuirCarteiraMotorista(carteiraMotorista == 0 ? CarteiraMotorista : carteiraMotorista);
+            AtribuirCarteiraReservista(carteiraReservista == 0 ? CarteiraReservista : carteiraReservista);
         }
     }
 }
